@@ -1,0 +1,229 @@
+ 	// install a JSONP callback for chunk loading
+ 	function webpackJsonpCallback(data) {
+ 		var chunkIds = data[0];
+ 		var moreModules = data[1];
+
+
+ 		// add "moreModules" to the modules object,
+ 		// then flag all "chunkIds" as loaded and fire callback
+ 		var moduleId, chunkId, i = 0, resolves = [];
+ 		for(;i < chunkIds.length; i++) {
+ 			chunkId = chunkIds[i];
+ 			if(Object.prototype.hasOwnProperty.call(installedChunks, chunkId) && installedChunks[chunkId]) {
+ 				resolves.push(installedChunks[chunkId][0]);
+ 			}
+ 			installedChunks[chunkId] = 0;
+ 		}
+ 		for(moduleId in moreModules) {
+ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+ 				modules[moduleId] = moreModules[moduleId];
+ 			}
+ 		}
+ 		if(parentJsonpFunction) parentJsonpFunction(data);
+
+ 		while(resolves.length) {
+ 			resolves.shift()();
+ 		}
+
+ 	};
+
+
+ 	// The module cache
+ 	var installedModules = {};
+
+ 	// object to store loaded and loading chunks
+ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
+ 	// Promise = chunk loading, 0 = chunk loaded
+ 	var installedChunks = {
+ 		10: 0
+ 	};
+
+
+
+ 	// script path function
+ 	function jsonpScriptSrc(chunkId) {
+ 		return __webpack_require__.p + "" + ({"11":"npm.qr-code-styling"}[chunkId]||chunkId) + "." + {"0":"d2f6cb60d321c3b8880f","1":"560501b086463b1ceea7","2":"9f3d8b4cfdc638e234db","3":"7b430eaaf0e60858932c","4":"c58634a52e83e4fc454d","5":"06bed6af9366963366dd","6":"4464f0d1a2206921337a","7":"649defde29d1c69bd34c","8":"e2891ae2665b1751df9e","9":"28bb231b6c4ea8ce74cc","11":"db96c5fe59c6e5a0b779","12":"64eef3b6d04c82fd3015","13":"68414a1fc68932c99dcc","14":"df79d4aef5e6b4fe7c9a","15":"ea1ca91e52477b18357f","16":"9cbdb3e248e370ec2c0a","17":"d12fdbac1cb5c597eb12","18":"da9037c683cee3d4a3cb","19":"bbe8f90e967234ef9de9","20":"23777e2534b4f519b8c7","21":"bb0d43d3fa9fba7a52bf","22":"b2b36858403b2094312f","23":"c0d5e1a4c2b3058e0e04","24":"0afcd4adadf0b570c63c","25":"719cb3d7a73b2ae78053","26":"29f2e686ad8e61e8d92e","27":"4dfec84fdb513eebf355","28":"78031ba33dfb473bcabe","29":"fb2854d59faeefc88b14","30":"cdb3ede82f73b2cba086","31":"dea27522be9668aed33b"}[chunkId] + ".chunk.js"
+ 	}
+
+ 	// The require function
+ 	function __webpack_require__(moduleId) {
+
+ 		// Check if module is in cache
+ 		if(installedModules[moduleId]) {
+ 			return installedModules[moduleId].exports;
+ 		}
+ 		// Create a new module (and put it into the cache)
+ 		var module = installedModules[moduleId] = {
+ 			i: moduleId,
+ 			l: false,
+ 			exports: {}
+ 		};
+
+ 		// Execute the module function
+ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+ 		// Flag the module as loaded
+ 		module.l = true;
+
+ 		// Return the exports of the module
+ 		return module.exports;
+ 	}
+
+ 	// This file contains only the entry chunk.
+ 	// The chunk loading function for additional chunks
+ 	__webpack_require__.e = function requireEnsure(chunkId) {
+ 		var promises = [];
+
+
+ 		// JSONP chunk loading for javascript
+
+ 		var installedChunkData = installedChunks[chunkId];
+ 		if(installedChunkData !== 0) { // 0 means "already installed".
+
+ 			// a Promise means "currently loading".
+ 			if(installedChunkData) {
+ 				promises.push(installedChunkData[2]);
+ 			} else {
+ 				// setup Promise in chunk cache
+ 				var promise = new Promise(function(resolve, reject) {
+ 					installedChunkData = installedChunks[chunkId] = [resolve, reject];
+ 				});
+ 				promises.push(installedChunkData[2] = promise);
+
+ 				// start chunk loading
+ 				// create error before stack unwound to get useful stacktrace later
+ 				var error = new Error();
+ 				function loadScript(src, retries) {
+ 				  var script = document.createElement('script');
+ 				  var retryAttempt = 999999 - retries + 1;
+ 				  var retryAttemptString = '&retry-attempt=' + retryAttempt;
+ 				  var onScriptComplete;
+
+ 				  script.charset = 'utf-8';
+ 				  script.timeout = 120;
+ 				  if (__webpack_require__.nc) {
+ 				    script.setAttribute('nonce', __webpack_require__.nc);
+ 				  }
+ 				  script.src = src;
+
+ 				  onScriptComplete = function(event) {
+ 				    // avoid mem leaks in IE.
+ 				    script.onerror = script.onload = null;
+ 				    clearTimeout(timeout);
+ 				    var chunk = installedChunks[chunkId];
+ 				    if (chunk !== 0) {
+ 				      if (chunk) {
+ 				        if (retries === 0) {
+ 				          var errorType =
+ 				            event && (event.type === 'load' ? 'missing' : event.type);
+ 				          var realSrc = event && event.target && event.target.src;
+ 				          error.message =
+ 				            'Loading chunk ' +
+ 				            chunkId +
+ 				            ' failed after 999999 retries.\n(' +
+ 				            errorType +
+ 				            ': ' +
+ 				            realSrc +
+ 				            ')';
+ 				          error.name = 'ChunkLoadError';
+ 				          error.type = errorType;
+ 				          error.request = realSrc;
+ 				          chunk[1](error);
+ 				          installedChunks[chunkId] = undefined;
+ 				        } else {
+ 				          setTimeout(function() {
+ 				            var cacheBust = (function() {
+ 				              return Date.now();
+ 				            })();
+ 				            +retryAttemptString;
+ 				            var retryScript = loadScript(
+ 				              jsonpScriptSrc(chunkId) + '?' + cacheBust,
+ 				              retries - 1
+ 				            );
+ 				            document.head.appendChild(retryScript);
+ 				          }, 0);
+ 				        }
+ 				      } else {
+ 				        installedChunks[chunkId] = undefined;
+ 				      }
+ 				    }
+ 				  };
+ 				  var timeout = setTimeout(function() {
+ 				    onScriptComplete({ type: 'timeout', target: script });
+ 				  }, 120000);
+ 				  script.onerror = script.onload = onScriptComplete;
+ 				  return script;
+ 				}
+
+ 				var script = loadScript(jsonpScriptSrc(chunkId), 999999);
+ 				document.head.appendChild(script);
+ 			}
+ 		}
+ 		return Promise.all(promises);
+ 	};
+
+ 	// expose the modules object (__webpack_modules__)
+ 	__webpack_require__.m = modules;
+
+ 	// expose the module cache
+ 	__webpack_require__.c = installedModules;
+
+ 	// define getter function for harmony exports
+ 	__webpack_require__.d = function(exports, name, getter) {
+ 		if(!__webpack_require__.o(exports, name)) {
+ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+ 		}
+ 	};
+
+ 	// define __esModule on exports
+ 	__webpack_require__.r = function(exports) {
+ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+ 		}
+ 		Object.defineProperty(exports, '__esModule', { value: true });
+ 	};
+
+ 	// create a fake namespace object
+ 	// mode & 1: value is a module id, require it
+ 	// mode & 2: merge all properties of value into the ns
+ 	// mode & 4: return value when already ns object
+ 	// mode & 8|1: behave like require
+ 	__webpack_require__.t = function(value, mode) {
+ 		if(mode & 1) value = __webpack_require__(value);
+ 		if(mode & 8) return value;
+ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+ 		var ns = Object.create(null);
+ 		__webpack_require__.r(ns);
+ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+ 		return ns;
+ 	};
+
+ 	// getDefaultExport function for compatibility with non-harmony modules
+ 	__webpack_require__.n = function(module) {
+ 		var getter = module && module.__esModule ?
+ 			function getDefault() { return module['default']; } :
+ 			function getModuleExports() { return module; };
+ 		__webpack_require__.d(getter, 'a', getter);
+ 		return getter;
+ 	};
+
+ 	// Object.prototype.hasOwnProperty.call
+ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+
+ 	// __webpack_public_path__
+ 	__webpack_require__.p = "";
+
+ 	// on error function for async loading
+ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
+
+ 	var jsonpArray = this["webpackJsonp"] = this["webpackJsonp"] || [];
+ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
+ 	jsonpArray.push = webpackJsonpCallback;
+ 	jsonpArray = jsonpArray.slice();
+ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+ 	var parentJsonpFunction = oldJsonpFunction;
+
+
+ 	// Load entry module and return exports
+ 	return __webpack_require__(__webpack_require__.s = 11);

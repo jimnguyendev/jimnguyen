@@ -1,0 +1,27 @@
+@import './index.less';
+
+// GLOBAL
+.maxWidthText {
+  width: 56em;
+  max-width: 100%;
+}
+
+.maxWidth(@width) {
+  @apply p-6;
+
+  margin: 0 auto;
+  width: 100%;
+  max-width: @width;
+}
+
+.defaultWidth {
+  .maxWidth(@screen-xl);
+}
+
+.smallWidth {
+  .maxWidth(@screen-sm);
+}
+
+.xsmallWidth {
+  .maxWidth(28em);
+}

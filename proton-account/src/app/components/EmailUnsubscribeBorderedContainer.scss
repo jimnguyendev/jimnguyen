@@ -1,0 +1,9 @@
+
+$path-images: "~@proton/styles/assets/img/shared/";
+
+@import '~@proton/styles/scss/config';
+
+.email-unsubscribe-container {
+	inline-size: rem(480);
+	max-inline-size: 80%;
+}

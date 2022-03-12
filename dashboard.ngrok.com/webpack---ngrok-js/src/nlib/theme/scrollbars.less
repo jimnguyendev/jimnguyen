@@ -1,0 +1,49 @@
+@import (reference) './global.less';
+
+.styledScrollbars {
+  :global {
+    // Styles scrollbars
+
+    @scrollbar-thumb-color: #bfbfbf;
+    @scrollbar-track-color: @layout-body-background;
+
+    @scrollbar-thumb-color-dark: #8c8c8c;
+    @scrollbar-track-color-dark: @menu-dark-bg;
+
+    * {
+      // Firefox
+      scrollbar-width: thin;
+      scrollbar-color: @scrollbar-thumb-color @scrollbar-track-color;
+
+      // Chrome, Edge, Safari
+      &::-webkit-scrollbar {
+        width: 12px; // styling won't work without a defined width
+      }
+
+      &::-webkit-scrollbar-track {
+        background: @scrollbar-track-color;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: @scrollbar-thumb-color;
+        border-radius: @border-radius-base * 2;
+        border: 2px solid @scrollbar-track-color;
+      }
+    }
+
+    .ant-menu-dark {
+      // Firefox
+      scrollbar-color: @scrollbar-thumb-color-dark @scrollbar-track-color-dark;
+
+      // Chrome, Edge, Safari
+      &::-webkit-scrollbar-track {
+        background: @scrollbar-track-color-dark;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: @scrollbar-thumb-color-dark;
+        border-color: @scrollbar-track-color-dark;
+      }
+    }
+  }
+}

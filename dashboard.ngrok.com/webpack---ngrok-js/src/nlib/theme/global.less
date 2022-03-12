@@ -1,0 +1,477 @@
+@import (reference) './style-variables/index.less';
+@import (reference) 'antd/lib/input/style/mixin.less';
+@import (reference) './style-variables/page.less';
+
+/* stylelint-disable no-duplicate-selectors */
+
+:global {
+  html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+  }
+
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+
+  // tailwind border preflight
+  *,
+  ::before,
+  ::after {
+    border-width: 0;
+    border-style: solid;
+    border-color: currentcolor;
+  }
+
+  * {
+    // Animation Overrides - Make most things behave instantly
+    transition-duration: 0s !important;
+  }
+
+  // provide an a11y escape hatch for those that prefer less motion
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    transition: all @animation-duration-fast, visibility 0s;
+  }
+
+  .ant-switch {
+    transition: all @animation-duration-fast;
+  }
+
+  .ant-tabs-tab-btn {
+    transition: all @animation-duration-fast;
+  }
+}
+
+:global {
+  a[target='_blank']:not([href^='mailto:']):not([data-hide-new-tab-icon]) {
+    &::after {
+      content: url("data:image/svg+xml,%3Csvg width='1em' height='1em' viewBox='0 0 1024 1024' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M835.471 187.057L661.921 207.495C655.428 208.247 652.762 216.107 657.342 220.687L709.29 272.636L494.66 487.266C491.652 490.274 491.652 495.195 494.66 498.203L532.938 536.481C535.945 539.488 540.867 539.488 543.874 536.481L758.505 321.85L810.454 373.799C815.033 378.379 822.962 375.645 823.646 369.219L844.084 195.669C844.226 194.504 844.101 193.322 843.718 192.213C843.336 191.103 842.706 190.095 841.876 189.265C841.046 188.435 840.038 187.805 838.928 187.422C837.818 187.04 836.636 186.915 835.471 187.057ZM812.557 532.153H760.55C756.49 532.153 753.107 535.537 753.107 539.597V770.003H246.797V263.597H505.357C505.357 263.597 512.8 263.597 512.897 255.733C512.961 250.486 512.94 237.472 512.918 224.51C512.907 218.048 512.897 211.6 512.897 206.133C512.897 200.8 510.4 196.8 503.467 196.8H209.677C193.243 196.8 180 210.043 180 226.477V807.123C180 823.557 193.243 836.8 209.677 836.8H790.323C806.757 836.8 820 823.557 820 807.123V539.597C820 535.44 816.617 532.153 812.557 532.153Z' fill='%23626262'/%3E%3C/svg%3E%0A");
+      vertical-align: middle;
+      margin-left: 0.1em;
+      position: relative;
+      top: 0.1em;
+      opacity: 0.75;
+    }
+
+    &.ant-btn::after {
+      display: none;
+    }
+
+    &.ExternalLinkIconOnHover:not(:hover)::after {
+      visibility: hidden;
+    }
+  }
+
+  .ant-menu-item > a[target='_blank'] {
+    &::after {
+      display: none;
+    }
+  }
+}
+
+:global {
+  .ant-form-horizontal {
+    .ant-form-item-control-input-content > .ant-checkbox-wrapper,
+    .ant-checkbox-wrapper-disabled,
+    .ant-radio-wrapper {
+      margin-top: 5px;
+    }
+
+    .ant-radio-group {
+      @apply flex flex-col gap-1;
+    }
+
+    .ant-radio-wrapper {
+      @apply flex;
+
+      & + span:not(.ant-radio) {
+        @apply inline-block;
+      }
+    }
+  }
+}
+
+:global {
+  .ant-card + .ant-card,
+  .ant-collapse + .ant-collapse {
+    margin-top: @padding-md;
+    margin-bottom: @padding-md;
+  }
+
+  tr.ant-table-expanded-row > td {
+    background-color: white !important;
+  }
+
+  .ant-card-bordered {
+    border-color: @border-color-base;
+  }
+
+  .ant-card-actions {
+    border-radius: 0 0 (@border-radius-base - 1) (@border-radius-base - 1);
+  }
+
+  .ant-collapse > .ant-collapse-item:nth-last-of-type(2) {
+    border-color: @border-color-split;
+  }
+
+  .ant-collapse-content {
+    border-color: @border-color-split;
+  }
+
+  .ant-collapse.ant-collapse-icon-position-right
+    > .ant-collapse-item
+    > .ant-collapse-header
+    .ant-collapse-arrow {
+    left: auto;
+    right: @collapse-content-padding;
+  }
+
+  .ant-collapse
+    > .ant-collapse-item
+    > .ant-collapse-header
+    .ant-collapse-arrow {
+    left: @collapse-content-padding;
+  }
+
+  .ant-collapse
+    > .ant-collapse-item.ant-collapse-no-arrow
+    > .ant-collapse-header {
+    padding-left: @collapse-content-padding;
+  }
+
+  .ant-typography {
+    code,
+    pre {
+      background-color: @layout-body-background;
+      border: 1px solid @layout-body-background;
+      color: @heading-color;
+    }
+
+    pre {
+      border-radius: @border-radius-base;
+      padding: @input-padding-vertical-base @input-padding-horizontal-base;
+    }
+
+    pre code {
+      padding: 0;
+      margin: 0;
+      border: none;
+      background: transparent;
+    }
+  }
+
+  code,
+  pre {
+    background-color: @layout-body-background;
+    border: 1px solid @layout-body-background;
+    color: @heading-color;
+  }
+
+  pre {
+    border-radius: @border-radius-base;
+    padding: @input-padding-vertical-base @input-padding-horizontal-base;
+  }
+
+  pre code {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+  }
+
+  .ant-typography strong,
+  strong {
+    font-weight: 500;
+  }
+
+  .ant-tag {
+    font-family: @code-family;
+  }
+
+  .ant-table {
+    border-radius: @border-radius-base;
+    border: 1px solid @border-color-base;
+    padding-bottom: 1px;
+  }
+
+  .ant-table .ant-table-expanded-row-fixed {
+    width: 100% !important;
+  }
+
+  .ant-table-tbody .ant-table-row,
+  .ant-table-tbody .ant-table-row input {
+    font-family: @code-family;
+    font-size: @font-size-sm;
+    line-height: 22px;
+  }
+
+  .ant-table-tbody > tr:last-child > td {
+    border-bottom: none;
+
+    &:first-child {
+      border-bottom-left-radius: @border-radius-base - 1;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: @border-radius-base - 1;
+    }
+  }
+
+  .ant-input,
+  .ant-select-selector,
+  .ant-picker,
+  .ant-input-group-addon,
+  .ant-input-affix-wrapper,
+  .ant-input-number,
+  .ant-radio-button-wrapper,
+  .ant-mentions {
+    box-shadow: @btn-shadow;
+  }
+
+  .ant-input-disabled,
+  .ant-select-selector-disabled,
+  .ant-picker-disabled,
+  .ant-input-group-addon-disabled,
+  .ant-input-affix-wrapper-disabled,
+  .ant-input-number-disabled,
+  .ant-radio-button-wrapper-disabled,
+  .ant-mentions-disabled {
+    box-shadow: none;
+  }
+
+  .ant-form-item {
+    margin-bottom: @margin-md;
+  }
+
+  .ant-form-item-with-help {
+    margin-bottom: 0;
+  }
+
+  .ant-form-item-explain,
+  .ant-form-item-extra {
+    margin-top: 2px;
+    min-height: 22px;
+  }
+
+  .ant-input-affix-wrapper > .ant-input {
+    box-shadow: none;
+  }
+
+  .ant-table-middle .ant-table-column-sorters {
+    padding: 0;
+  }
+
+  // FOCUS STATES
+  // + Add outline for btn, input, text links
+  // - Remove light background
+  .ant-card a:focus,
+  .ant-btn:focus,
+  .ant-btn-focused,
+  .ant-btn-default:focus,
+  .ant-btn-default-focused,
+  .ant-input-affix-wrapper-focused {
+    .active(@outline-color);
+
+    &.ant-btn-primary:not(.ant-btn-background-ghost) {
+      background-color: @btn-primary-bg;
+      border-color: transparent;
+    }
+
+    &.ant-btn-dangerous {
+      .active(@btn-danger-border);
+
+      background-color: @btn-default-ghost-color;
+      border-color: @btn-danger-border;
+      color: @btn-danger-bg;
+
+      &:active {
+        color: @red-6;
+      }
+    }
+
+    &.ant-btn-danger,
+    &.ant-btn-dangerous.ant-btn-primary {
+      .active(@btn-danger-border);
+
+      background-color: @btn-danger-bg;
+      color: @btn-default-ghost-color;
+
+      &:active {
+        background-color: @red-6;
+      }
+
+      &.ant-btn-link {
+        color: @btn-danger-bg;
+        background-color: transparent;
+      }
+    }
+
+    &.ant-btn-link {
+      border-color: transparent;
+      color: @btn-primary-bg;
+
+      &.ant-btn-dangerous {
+        color: @btn-danger-bg;
+
+        &:active {
+          color: @red-6;
+        }
+      }
+    }
+  }
+
+  a:focus {
+    // for prettier text links
+    border-radius: @border-radius-base;
+  }
+
+  .ant-card div.ant-typography,
+  .ant-collapse-content-box div.ant-typography,
+  .ant-collapse-content-box > p,
+  .ant-alert-description > div.ant-typography,
+  .ant-card-body > p {
+    .maxWidthText();
+  }
+}
+
+:global {
+  .ant-tabs-tab .ant-tabs-tab-btn {
+    user-select: none;
+  }
+}
+
+:global {
+  .ant-popover {
+    z-index: 100000000000000;
+  }
+}
+
+:global {
+  // Some tooltips can't be customized (like the copy button on Typography.Text), so this is a hack to prevent them from staying when you have your mouse over the bubble. This does not fix the timeout though.
+
+  .ant-tooltip {
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+:global {
+  // Prevent table headers from being highlighted
+  .ant-table-thead {
+    user-select: none;
+  }
+}
+
+:global {
+  // Hide scrollbar on overflowing tables until content is actually scrollable
+  .ant-table-scroll-horizontal .ant-table-content {
+    overflow-x: auto !important;
+  }
+}
+
+:global {
+  /* reCAPTCHA */
+  .rc-anchor-normal.rc-anchor-error .rc-anchor-error-msg-container {
+    padding-left: 12px;
+  }
+}
+
+:global {
+  /* Stripe CardElement input for react-stripe-js */
+  .StripeElement {
+    box-sizing: border-box;
+    height: 32px;
+    padding: 6px 12px;
+    border: @border-width-base @border-style-base @input-border-color;
+    border-radius: @border-radius-base;
+    background-color: @input-bg;
+    box-shadow: @btn-shadow;
+    transition: all 0.3s;
+
+    &:hover {
+      .hover();
+    }
+  }
+
+  .StripeElement--focus {
+    .active();
+  }
+
+  .StripeElement--invalid {
+    color: @error-color;
+    border-color: @error-color;
+    background-color: @form-error-input-bg;
+  }
+
+  .StripeElement--focus.StripeElement--invalid {
+    .active(@error-color);
+  }
+
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
+}
+
+:global {
+  // notification text overflows and covers X button when containing large URLs
+  .ant-notification-notice-message {
+    word-break: break-word;
+  }
+}
+
+:global {
+  // Centering for antd spinner when React has not yet initialized
+  #app > .ant-spin,
+  .FirstLoader {
+    width: 100%;
+    height: 33.3333%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+  }
+}
+
+:global {
+  // .ant-row seems to override the display for hidden form items
+  .ant-form-item-hidden {
+    display: none !important;
+  }
+}
+
+:global {
+  .ant-menu-item-selected {
+    font-weight: 500;
+  }
+}
+
+:global {
+  p {
+    margin-bottom: 16px;
+  }
+}
+
+:global {
+  // fix vertical alignment in alerts
+  .ant-alert {
+    @apply items-start;
+  }
+
+  .ant-alert-icon {
+    @apply mt-1;
+  }
+}

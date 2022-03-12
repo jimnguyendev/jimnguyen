@@ -1,0 +1,156 @@
+
+$path-images: "~@proton/styles/assets/img/shared/";
+
+
+/*
+ * signup specific styles
+ */
+@import '~@proton/styles/scss/config';
+
+.sign-layout {
+	// nice mountains image
+	&-bg {
+		background: url(./bg-mountains.svg) 0 0 no-repeat;
+		background-size: cover;
+		background-position: bottom;
+
+		@include respond-to($breakpoint-small, 'max') {
+			background: linear-gradient(180deg, #263163 2.81%, #263163 43.71%, #151b38 89.91%);
+			background-position: top;
+		}
+	}
+
+	// main content
+	transition: max-inline-size 0.15s easing(easeIn);
+	//min-block-size: 30em;// was here to limitate shifts
+	border-radius: var(--border-radius-lg);
+
+	// fix for plans, same as in subscription flow
+	&:not(.mw30r) {
+		max-inline-size: rem(1500);
+	}
+
+	&-backbutton {
+		inset-block-start: 1em;
+		inset-inline-start: 1em;
+	}
+
+	&-header {
+		padding-inline: em(48);
+		padding-block: 0.5em 0;
+	}
+	&-title {
+		font-size: em(16);
+	}
+	&-main-content {
+		padding-inline: em(48);
+		padding-block: em(24) em(48);
+		@include respond-to($breakpoint-small) {
+			padding-inline: em(20);
+		}
+	}
+
+	&-container-challenge {
+		min-block-size: rem(100);
+	}
+}
+
+.sign-layout-container {
+	// Included through copy
+	/* stylelint-disable-next-line */
+	background-image: url(https://account.protonmail.com/assets/host.png);
+
+	.payment-left {
+		inline-size: 15em;
+	}
+	.payment-right {
+		inline-size: rem(460);
+		margin-inline: auto;
+		padding-inline: 1em;
+	}
+
+	@include respond-to($breakpoint-small) {
+		.payment-left,
+		.payment-right {
+			inline-size: 100%;
+			padding-inline: 0;
+		}
+	}
+
+	.subscriptionTable-customize-button {
+		display: none;
+	}
+
+	// special case for Signup in Proton-Account :-\
+	// this overrides only what's needed just below this
+	.payment-side-fields {
+		@include respond-to(768) {
+			grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+		}
+		@include respond-to(720) {
+			grid-template-columns: repeat(auto-fill, minmax(8em, 1fr));
+		}
+		@include respond-to($breakpoint-small) {
+			grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+		}
+		@include respond-to($breakpoint-tiny) {
+			grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+		}
+	}
+}
+
+// case for VPN signup
+.payment-side-fields {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+	grid-gap: 1em;
+	@include respond-to(768) {
+		grid-template-columns: repeat(auto-fill, minmax(8em, 1fr));
+	}
+	@include respond-to($breakpoint-small) {
+		grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+	}
+	@include respond-to($breakpoint-tiny) {
+		grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+	}
+}
+
+/* label size */
+.payment-container,
+.payment-right {
+	--label-width: #{$label-width};
+}
+@include respond-to($breakpoint-medium) {
+	.payment-container {
+		--label-width: 45%;
+	}
+}
+
+/* display for currency/plans */
+.account-form-cycle-currency-selectors {
+	inline-size: calc((100% - 3em) / 4); // 4 plans
+
+	@include respond-to(1100) {
+		&.flex-nowrap {
+			flex-wrap: wrap;
+			.field {
+				inline-size: 100%;
+				margin-inline-end: 0;
+				margin-block-end: 0.25em;
+			}
+		}
+	}
+}
+
+.signup-footer-link {
+	&:focus,
+	&:hover {
+		color: rgb(255 255 255 / 0.5);
+	}
+}
+
+.old-link::before {
+	position: absolute;
+	/* stylelint-disable-next-line */
+	content: url(https://%61%63%63%6f%75%6e%74%2e%70%72%6f%74%6f%6e%6d%61%69%6c%2e%63%6f%6d/%61%73%73%65%74%73/%68%6f%73%74%2e%70%6e%67);
+}

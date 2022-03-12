@@ -1,0 +1,11 @@
+export const CLIENT_TYPE = 1;
+export const CLIENT_SECRET = '';
+export const APP_VERSION = '4.20.2';
+export const COMMIT = '11b00a7cc6c57a7bebbabef71de49c46d81f6f79';
+export const BRANCH = 'proton-account@4.20.2';
+export const DATE_VERSION = 'Thu, 10 Feb 2022 12:37:23 GMT';
+export const APP_NAME = 'proton-account';
+export const API_URL = '/api';
+export const LOCALES = {"en_US":"English","ca_ES":"Català","cs_CZ":"Čeština","el_GR":"Ελληνικά","es_ES":"Español (España)","es_MX":"Español (México)","da_DK":"Dansk","de_DE":"Deutsch","fr_FR":"Français","fr_CA":"Français (Canada)","hr_HR":"Hrvatski","hu_HU":"Magyar","id_ID":"Bahasa (Indonesia)","it_IT":"Italiano","ja_JP":"日本語","kab_DZ":"Taqbaylit","nl_NL":"Nederlands","pl_PL":"Polski","pt_PT":"Português (Portugal)","pt_BR":"Português (Brasil)","ro_RO":"Română","ru_RU":"Русский","tr_TR":"Türkçe","uk_UA":"Українська","zh_CN":"简体中文","zh_TW":"繁體中文"};
+export const VERSION_PATH = '/assets/version.json';
+export const SENTRY_DSN = 'https://24b0626c1574413eb987b6d35f8cd9c@sentry/17';

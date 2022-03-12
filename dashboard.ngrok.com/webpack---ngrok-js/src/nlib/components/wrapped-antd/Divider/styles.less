@@ -1,0 +1,23 @@
+.leftAligned {
+  :global {
+    .ant-divider-inner-text {
+      padding-left: 0;
+    }
+  }
+
+  &::before {
+    display: none;
+  }
+}
+
+.rightAligned {
+  :global {
+    .ant-divider-inner-text {
+      padding-right: 0;
+    }
+  }
+
+  &::after {
+    display: none;
+  }
+}
